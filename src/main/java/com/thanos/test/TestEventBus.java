@@ -11,11 +11,9 @@ import org.junit.Test;
 public class TestEventBus {
 
     @Test
-    public void testReceiveEvent() throws Exception {
-
-        EventBus eventBus = new EventBus("Test");
+    public void testEventBus(){
+        EventBus eventBus = new EventBus();
         EventListener listener = new EventListener();
-
         eventBus.register(listener);
 
         eventBus.post("Bus1 coming");
