@@ -1,7 +1,7 @@
 package com.thanos.leetcode;
 
 
-import java.util.*;
+import java.util.Arrays;
 
 /**
  * @author Shi Qiang Yu
@@ -9,47 +9,41 @@ import java.util.*;
  */
 public class TestLeet {
 
-    public List<List<Integer>> fourSum(int[] nums, int target) {
-        Arrays.sort(nums);
-        return kSum(nums, 4, 0, target);
-    }
-
-    private static List<List<Integer>> kSum(int[] nums, int k, int start, int target) {
-        List<List<Integer>> res = new LinkedList<>();
-        if (k == 2) {
-            int left = start, right = nums.length - 1;
-            while (left < right) {
-                List<Integer> path = new LinkedList<>();
-                if (nums[left] + nums[right] == target) {
-                    path.add(nums[left]);
-                    path.add(nums[right]);
-                    res.add(path);
-                    while (left < right && nums[left] == nums[left + 1]) left++;
-                    while (left < right && nums[right] == nums[right - 1]) right--;
-                    left++;
-                    right--;
-                } else if (nums[left] + nums[right] < target) {
-                    left++;
-                } else {
-                    right--;
+    public String[] findRelativeRanks(int[] nums) {
+        int[] tempArray = nums.clone();
+        for (int i = 0; i < tempArray.length - 1; i++) {
+            for (int j = 0; j < tempArray.length - 1 - i; j++) {
+                if (tempArray[j] < tempArray[j + 1]) {
+                    int tmp = tempArray[j];
+                    tempArray[j] = tempArray[j + 1];
+                    tempArray[j + 1] = tmp;
                 }
             }
-        } else {
-            for (int i = start; i < nums.length - (k - 1); i++) {
-                if (i > start && nums[i] == nums[i - 1]) continue;
-                List<List<Integer>> tmp = kSum(nums, k - 1, i + 1, target - nums[i]);
-                for (List<Integer> t : tmp) {
-                    t.add(0, nums[i]);
+        }
+        System.out.println(Arrays.toString(tempArray));
+        String[] res = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == tempArray[0]) {
+                res[i] = "Gold Medal";
+            } else if (nums[i] == tempArray[1]) {
+                res[i] = "Silver Medal";
+            } else if (nums[i] == tempArray[2]) {
+                res[i] = "Bronze Medal";
+            } else {
+                for (int j = 3; j < tempArray.length; j++) {
+                    if (nums[i] == tempArray[j]) {
+                        res[i] = String.valueOf(j + 1);
+                    }
                 }
-                res.addAll(tmp);
             }
         }
         return res;
     }
 
-
     public static void main(String[] args) {
         TestLeet testLeet = new TestLeet();
-        System.out.println(testLeet.fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0));
+        System.out.println((Arrays.toString(testLeet.findRelativeRanks(new int[]{9, 2, 6, 5, 7}))));
     }
 }
+
+
