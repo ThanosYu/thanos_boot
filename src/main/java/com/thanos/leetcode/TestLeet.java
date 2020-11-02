@@ -7,21 +7,51 @@ package com.thanos.leetcode;
  */
 public class TestLeet {
 
-    public TreeNode invertTree(TreeNode root) {
-        if (null == root) {
-            return null;
-        }
-        TreeNode left = root.left;
-        TreeNode right = root.right;
-        root.left = invertTree(right);
-        root.right = invertTree(left);
-        return root;
+    int count = 0, result = 0;
+
+    public int kthLargest(TreeNode root, int k) {
+        cal(root, k);
+        return result;
     }
+
+    public void cal(TreeNode root, int k) {
+        if (null == root) {
+            return;
+        }
+        cal(root.right, k);
+        count++;
+        if (count == k) {
+            result = root.val;
+            return;
+        }
+        cal(root.left, k);
+    }
+
+
+//    public void calculate(TreeNode root, int k) {
+//        if (root == null) {
+//            return;
+//        }
+//        calculate(root.right, k);
+//        count++;
+//        System.out.println(root.val);
+//        if (count == k) {
+//            num = root.val;
+//            return;
+//        }
+//        calculate(root.left, k);
+//    }
+
 
     public static void main(String[] args) {
         TestLeet testLeet = new TestLeet();
-        TreeNode treeNode = new TreeNode(9);
-        System.out.println("=====result: " + testLeet.invertTree(treeNode));
+        TreeNode root = new TreeNode(3);
+        root.right = new TreeNode(4);
+
+        TreeNode left = new TreeNode(1);
+        left.right = new TreeNode(2);
+        root.left = left;
+        System.out.println("=====result: " + testLeet.kthLargest(root, 4));
     }
 }
 
