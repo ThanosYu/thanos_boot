@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestLeverOrder {
 
-    private List<List<Integer>> list = new ArrayList<>();
+    private List<List<Integer>> list = new ArrayList<List<Integer>>();
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         cal(root, 0);
@@ -17,7 +17,7 @@ public class TestLeverOrder {
             return;
         }
         if (list.size() == index) {
-            List<Integer> innner = new ArrayList<>();
+            List<Integer> innner = new ArrayList<Integer>();
             innner.add(root.val);
             list.add(innner);
         } else {
