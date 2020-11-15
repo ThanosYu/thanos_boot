@@ -9,7 +9,7 @@ public class TestLeverOrder1 {
     private List<List<Integer>> list = new ArrayList<List<Integer>>();
     public int[] levelOrder(TreeNode root) {
         cal(root, 0);
-        List<Integer> res = new ArrayList<>();
+        List<Integer> res = new ArrayList<Integer>();
         for (List<Integer> items:list){
             res.addAll(items);
         }
